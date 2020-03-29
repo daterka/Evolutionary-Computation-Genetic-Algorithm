@@ -5,10 +5,10 @@ from _Chromosome import Chromosome
 from _Configuration import Config
 
 # Number of epochs, just a variable
-EPOCHS = 10
+EPOCHS = 100
 
 # Number of individuals
-POPULATION_SIZE = 10
+POPULATION_SIZE = 1000
 
 # Target args number
 N = 2
@@ -75,19 +75,20 @@ def main():
     # print("new pop decimal : ", [x.getTargetValue() for x in opt.population])
 
     # Proper optimalization of target function
-    opt.initPopulation()
-    print("~~~~~~~~~~~~~  OPTIMALIZATION  ~~~~~~~~~~~~~~~")
-    print("old pop : ", opt.population)
-    opt.evaluate()
-    print("old pop decimal : ", [x.getTargetValue() for x in opt.population])
-    opt.optimize()
-    print("new pop : ", opt.population)
-    print("new pop decimal : ", [x.getTargetValue() for x in opt.population])
+    # opt.initPopulation()
+    # print("~~~~~~~~~~~~~  OPTIMALIZATION  ~~~~~~~~~~~~~~~")
+    # print("old pop : ", opt.population)
+    # opt.evaluate()
+    # print("old pop decimal : ", [x.getTargetValue() for x in opt.population])
+    # opt.optimize()
+    # print("new pop : ", opt.population)
+    # print("new pop decimal : ", [x.getTargetValue() for x in opt.population])
 
     # GENEREAL TEST
-    opt_test = Optimizer(target=function, epochs=100, args_num=N, x1_range=X1_RANGE, x2_range=X2_RANGE, precision=6, population_size=100, type="min")
-    opt.optimize()
-    print("best = ", opt.getBest().getTargetValue())
+    opt_test = Optimizer(target=function, epochs=EPOCHS, args_num=N, x1_range=X1_RANGE, x2_range=X2_RANGE, precision=PRECISION, population_size=POPULATION_SIZE, type="min")
+    opt_test.initPopulation()
+    opt_test.optimize()
+    print("best = ", opt_test.getBest().getTargetValue())
 
 
 

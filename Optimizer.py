@@ -4,9 +4,10 @@ from _Selection import Selection
 from _Crossover import Crossover
 from _Inversion import Inversion
 from _Mutation import Mutation
-from math import ceil, floor, log2
+from math import ceil, floor, log2, sin
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import axes3d
 import random
 
 # Module scopes
@@ -112,10 +113,10 @@ class Optimizer(Config, Selection, Crossover, Inversion, Mutation):
 
         mutation = (mutation, mutation_n, mutation_prob)
 
+
         while(epochs_counter < self.epochs):
             self.nextGen(selection, selection_parameter, crossover, mutation, survival_rate)
             epochs_counter += 1
-            # self.drawTarget()
 
         self.evaluate()
 
