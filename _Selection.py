@@ -23,8 +23,6 @@ class Selection:
 
     def normalizePopulation(self):
         # TODO is repeated evetytime, recode more efficient
-        # chromosomes_targets_sum = sum(x.getTargetValue() for x in self.population)
-        # cumulative_distribution = [x.getTargetValue() / chromosomes_targets_sum for x in self.population]
 
         normalized_population = [x.getTargetValue() for x in self.population]
         # TODO calculate in more statistical manner

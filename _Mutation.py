@@ -5,7 +5,6 @@ class Mutation:
     def mutate(self, chromosome, n, prob):
         r = random.random()
         if(r <= prob):
-
             for i in range(0, n, 1):
                 indx = random.randrange(0, (chromosome.len()), 1)
                 chromosome.representation[indx] = abs(chromosome.representation[indx]-1)

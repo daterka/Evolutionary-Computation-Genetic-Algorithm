@@ -18,7 +18,6 @@ class Inversion:
                 inverted.append(abs(i - 1))
 
             tmp1 = tmp1[:value[0]] + inverted + tmp1[value[1]:]
-            print("Crossed points {}  {}".format(value[0], value[1]))
             print(tmp1)
 
             tmp1 = tmp1.copy()

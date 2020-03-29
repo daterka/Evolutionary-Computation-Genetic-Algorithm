@@ -5,6 +5,8 @@ from _Crossover import Crossover
 from _Inversion import Inversion
 from _Mutation import Mutation
 from math import ceil, floor, log2
+import matplotlib.pyplot as plt
+import numpy as np
 import random
 
 # Module scopes
@@ -42,8 +44,6 @@ class Optimizer(Config, Selection, Crossover, Inversion, Mutation):
             target_val = Config.target(chromosome.decode())
             chromosome.setTargetValue(target_val)
 
-        print("eval : ",  [round(x.getTargetValue()) for x in self.population])
-
     # TODO todo..
     def validateChromosome(self):
         pass
@@ -57,33 +57,22 @@ class Optimizer(Config, Selection, Crossover, Inversion, Mutation):
             self.normalizePopulation()
 
         while len(offspring) < self.population_size-floor(self.population_size*survival_rate):
-        # for i in range(0, self.population_size-floor(self.population_size*survival_rate), 2):
             parent_1 = selection(selection_parameter)
-            # print("parent_1 : ", parent_1)
             parent_2 = selection(selection_parameter)
-            # print("parent_2 : ", parent_2)
+
             child_1, child_2 = crossover(parent_1, parent_2)
-            # print("child_1 :  ", child_1)
-            # print("child_2 :  ", child_2)
+
             child_1 = mutation(child_1, mutation_n, mutation_prob)
-            # child_1 = self.invert(child_1, 0.001)
             child_2 = mutation(child_2, mutation_n, mutation_prob)
-            # child_2 = self.invert(child_2, 0.001)
             # TODO inlude both childs or just best ??
-            # offspring.append(child_1) if self.target(child_1.decode()) < self.target(child_2.decode()) else offspring.append(child_2)
             offspring.append(child_1)
             offspring.append(child_2)
 
-        # print("offspring : ", offspring)
         best_indx = floor(self.population_size*survival_rate)
         current_fittest = self.sortedPopulation()[:best_indx]
-        # print("best indx = ", best_indx)
-        # print("curr fit : ", len(current_fittest))
-        # print("offspting : ", len(offspring[:self.population_size])) # technickly could be out of bound
-        # nextGeneration = current_fittest + offspring[:self.population_size]
+
         nextGeneration = current_fittest + offspring
-        # print("nextGenPop size : ", len(nextGeneration))
-        # print("nextgen : ", nextGeneration)
+
         return nextGeneration
 
     def nextGen(self, selection, selection_parameter, crossover, mutation, survival_rate):
@@ -126,6 +115,7 @@ class Optimizer(Config, Selection, Crossover, Inversion, Mutation):
         while(epochs_counter < self.epochs):
             self.nextGen(selection, selection_parameter, crossover, mutation, survival_rate)
             epochs_counter += 1
+            # self.drawTarget()
 
         self.evaluate()
 

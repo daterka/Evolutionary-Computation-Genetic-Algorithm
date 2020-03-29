@@ -78,6 +78,7 @@ def main():
     opt.initPopulation()
     print("~~~~~~~~~~~~~  OPTIMALIZATION  ~~~~~~~~~~~~~~~")
     print("old pop : ", opt.population)
+    opt.evaluate()
     print("old pop decimal : ", [x.getTargetValue() for x in opt.population])
     opt.optimize()
     print("new pop : ", opt.population)

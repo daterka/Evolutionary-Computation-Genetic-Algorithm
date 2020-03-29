@@ -14,9 +14,7 @@ class Crossover:
 
             tmp1 = tmp1[:value] + chromosome2.representation[value:]
             tmp2 = tmp2[:value] + chromosome1.representation[value:]
-            print("Crossed")
-            print(tmp1)
-            print(tmp2)
+
             tmp1 = tmp1.copy()
             tmp2 = tmp2.copy()
 
@@ -39,9 +37,6 @@ class Crossover:
 
             tmp1 = tmp1[:value[0]] + chromosome2.representation[value[0]:value[1]] + tmp1[value[1]:]
             tmp2 = tmp2[:value[0]] + chromosome1.representation[value[0]:value[1]] + tmp2[value[1]:]
-            print("Crossed points {}  {}".format(value[0], value[1]))
-            print(tmp1)
-            print(tmp2)
 
             tmp1 = tmp1.copy()
             tmp2 = tmp2.copy()
@@ -68,9 +63,6 @@ class Crossover:
                 2]] + chromosome2.representation[value[2]:]
             tmp2 = tmp2[:value[0]] + chromosome1.representation[value[0]:value[1]] + tmp2[value[1]:value[
                 2]] + chromosome1.representation[value[2]:]
-            print("Crossed points {}  {}  {}".format(value[0], value[1], value[2]))
-            print(tmp1)
-            print(tmp2)
 
             tmp1 = tmp1.copy()
             tmp2 = tmp2.copy()
