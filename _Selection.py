@@ -6,7 +6,6 @@ from _Configuration import Config
 
 
 class Selection:
-
     def sortedPopulation(self):
         return sorted(self.population, key=lambda ch: ch.getTargetValue(), reverse=False)
 
@@ -16,7 +15,7 @@ class Selection:
 
         parents = self.sortedPopulation()
         # TODO do it with slice
-        if (self.type == "min"):
+        if (self.type == 0):
             return random.choice(parents[:trunc])
         else:
             return random.choice(parents[trunc:])
@@ -24,25 +23,28 @@ class Selection:
     def normalizePopulation(self):
         # TODO is repeated evetytime, recode more efficient
 
-        normalized_population = [x.getTargetValue() for x in self.population]
-        # TODO calculate in more statistical manner
-        bias = 0.05
-        shilft = abs(self.sortedPopulation()[0].getTargetValue()) + bias
-        targets_sum = 0
-        for i in range(self.population_size):
-            normalized_population[i] = 1/(normalized_population[i] + shilft)
-            targets_sum += normalized_population[i]
+        if(self.type == 0):
+            normalized_population = [x.getTargetValue() for x in self.population]
+            # TODO calculate in more statistical manner
+            bias = 0.05
+            shilft = abs(self.sortedPopulation()[0].getTargetValue()) + bias
+            targets_sum = 0
+            for i in range(self.population_size):
+                normalized_population[i] = 1/(normalized_population[i] + shilft)
+                targets_sum += normalized_population[i]
 
-        probabilities = []
-        distribiution = 0
-        # TODO not store in Config
-        Config.cumulative_distribution = []
-        for x in normalized_population:
-            probability = x/targets_sum
-            probabilities.append(probability)
-            distribiution += probability
-            self.cumulative_distribution.append(distribiution)
+            probabilities = []
+            distribiution = 0
+            # TODO not store in Config
+            Config.cumulative_distribution = []
+            for x in normalized_population:
+                probability = x/targets_sum
+                probabilities.append(probability)
+                distribiution += probability
+                self.cumulative_distribution.append(distribiution)
 
+        else:
+            pass
     def roulette(self, param=None):
         ptr = random.uniform(0, 1)
         for i in range(self.population_size):
