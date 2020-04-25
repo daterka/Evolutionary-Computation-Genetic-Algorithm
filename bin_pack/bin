@@ -1,0 +1,53 @@
+    def decode(self):
+        x1 = 0;
+        x2 = 0
+        reversed_repr = list(reversed(self.representation))
+        half_length = int(self.length / 2)
+        for i in range(0, half_length):
+            power = pow(2, i)
+            x1 += reversed_repr[i] * power;
+            x2 += reversed_repr[half_length + i] * power;
+        # x = a + decimal(łańcuch_binarny) * (b - a) / (pow(2,m) -1)
+        domain = abs(self.x1_b - self.x1_a)
+        fraction = domain / (pow(2, half_length) - 1)
+        x1 = self.x1_a + x1 * fraction
+        x2 = self.x1_a + x2 * fraction
+
+        args = (x1, x2)
+        return args
+
+
+
+
+        x1 = 0
+    # binary=[0,0,0,0,1,1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0]
+    binary=[0,1,0,1,1,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,0,0,0,0]
+    for i in range(0, 24):
+        power = pow(2, i)
+        x1 += binary[i] * power;
+
+    domain_len = abs(20)
+    fraction = domain_len / (pow(2, 24) - 1)
+    x1 = -10 + x1 * fraction
+    print("MAIN X + ", x1)
+
+
+       def normalizePopulation(self):
+        # TODO is repeated evetytime, recode more efficient
+        # chromosomes_targets_sum = sum(x.getTargetValue() for x in self.population)
+        # cumulative_distribution = [x.getTargetValue() / chromosomes_targets_sum for x in self.population]
+
+        normalized_population = [x.getTargetValue for x in self.sortedPopulation()]
+        # TODO calculate in more statistical manner
+        bias = 0.05
+        shilft = abs(normalized_population[0]) + bias
+        targets_sum = 0
+        for i in range(self.population_size):
+            normalized_population[i] = 1/(normalized_population[i] + shilft)
+            targets_sum += normalized_population[i]
+
+        probabilities = []
+        self.cumulative_distribution = []
+        for x in normalized_population:
+            probabilities.append(x/targets_sum)
+            self.cumulative_distribution.append(sum(probabilities))
